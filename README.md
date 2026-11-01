@@ -31,3 +31,4 @@ Windows 11 x64 开发环境中，可使用下列命令仅构建和测试：
 见 [实机测试步骤](review/HARDWARE-TEST.md) 和 [只读 Windows 预检脚本](review/Test-WindowsPrerequisites.ps1)。
 
 Windows CI 在构建与全部自动测试通过后导出便携 ZIP 和 SHA-256；该流程已成功运行，下载入口见 [构建结果](review/WINDOWS-BUILD-RESULT.md)。也可在本地构建测试通过后执行 `airpods-desktop/Tools/Package-Evaluation.ps1` 导出便携包。打包脚本不会重新运行测试，不应在构建或测试失败时使用。
+Maintained by KevinDeng233
