@@ -1,0 +1,49 @@
+name: AirPods Windows evaluation
+on:
+  push:
+    branches:
+      - airpods/pro3-hardware-test
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-2022
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build-time Qt on runner
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.3'
+          arch: win64_msvc2022_64
+          modules: qtmultimedia
+          cache: true
+      - name: Prepare vcpkg on runner
+        shell: pwsh
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git "$env:RUNNER_TEMP/vcpkg"
+          if ($LASTEXITCODE -ne 0) { throw 'vcpkg checkout failed' }
+          & "$env:RUNNER_TEMP/vcpkg/bootstrap-vcpkg.bat" -disableMetrics
+          if ($LASTEXITCODE -ne 0) { throw 'vcpkg bootstrap failed' }
+      - name: Build and test without installing or launching the application
+        shell: pwsh
+        run: |
+          & ./airpods-desktop/Tools/Build-Evaluation.ps1 `
+            -QtRoot $env:QT_ROOT_DIR -VcpkgRoot "$env:RUNNER_TEMP/vcpkg"
+      - name: Package portable evaluation after successful tests
+        shell: pwsh
+        run: ./airpods-desktop/Tools/Package-Evaluation.ps1
+      - name: Upload portable evaluation
+        uses: actions/upload-artifact@v4
+        with:
+          name: airpods-evaluation-win11-x64
+          path: airpods-desktop/Build/Artifacts/AirPodsDesktop-evaluation-*.zip*
+          if-no-files-found: error
+      - name: Retain test logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-evaluation-test-logs
+          path: airpods-desktop/Build/Evaluation/Testing/Temporary/
+          if-no-files-found: ignore
