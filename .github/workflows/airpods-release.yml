@@ -1,0 +1,54 @@
+name: Publish tested AirPods portable release
+on:
+  push:
+    tags:
+      - v0.6.1-pro3.1
+permissions:
+  contents: write
+  actions: read
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TESTED_COMMIT: 9858bb03204b147bf11ab6bf0b20c402f8927422
+      TESTED_RUN: '41268074739'
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Verify tested source and successful build
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --exit-code "$TESTED_COMMIT" HEAD -- airpods-desktop
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$TESTED_RUN" > "$RUNNER_TEMP/tested-run.json"
+          python3 - <<'PY'
+          import json, os
+          with open(os.path.join(os.environ['RUNNER_TEMP'], 'tested-run.json')) as f:
+              run = json.load(f)
+          assert run['conclusion'] == 'success', 'The tested build was not successful'
+          assert run['head_sha'] == os.environ['TESTED_COMMIT'], 'Unexpected artifact source'
+          PY
+      - name: Test packaging integrity gates
+        run: python3 -m unittest discover -s release -p 'test_*.py' -v
+      - name: Download the tested portable artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: airpods-evaluation-win11-x64
+          run-id: '41268074739'
+          github-token: ${{ github.token }}
+          path: tested
+      - name: Verify and prepare release package
+        shell: bash
+        run: python3 release/prepare_release.py
+      - name: Publish prerelease with portable ZIP and checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh release create "$GITHUB_REF_NAME" \
+            --verify-tag --prerelease \
+            --title "AirPods Windows 11 · Pro 3 $GITHUB_REF_NAME" \
+            --notes-file release/notes.zh-CN.md \
+            dist/AirPodsDesktop-*-portable.zip dist/SHA256SUMS.txt

@@ -1,0 +1,58 @@
+{
+  "Qt-LGPL-3.0.txt": {
+    "url": "https://raw.githubusercontent.com/qt/qtbase/v6.8.3/LICENSES/LGPL-3.0-only.txt",
+    "sha256": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768"
+  },
+  "Qt-GPL-3.0.txt": {
+    "url": "https://raw.githubusercontent.com/qt/qtbase/v6.8.3/LICENSES/GPL-3.0-only.txt",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+  },
+  "FFmpeg-LGPL-2.1.txt": {
+    "url": "https://raw.githubusercontent.com/FFmpeg/FFmpeg/n7.1.1/COPYING.LGPLv2.1",
+    "sha256": "b634ab5640e258563c536e658cad87080553df6f34f62269a21d554844e58bfe"
+  },
+  "spdlog-MIT.txt": {
+    "url": "https://raw.githubusercontent.com/gabime/spdlog/100f30043f33277122e0991c83845a2617172ffd/LICENSE",
+    "sha256": "a7241a379cb98d37788f82c2fc2e484c3ae85dae881fd3406f0637644850926f"
+  },
+  "fmt-MIT.txt": {
+    "url": "https://raw.githubusercontent.com/gabime/spdlog/100f30043f33277122e0991c83845a2617172ffd/include/spdlog/fmt/bundled/LICENSE.rst",
+    "sha256": "825c9324e70f8c839c8ba910543dd4a7daee243b86ef960594c11381a19980b8"
+  },
+  "cxxopts-MIT.txt": {
+    "url": "https://raw.githubusercontent.com/jarro2783/cxxopts/v3.0.0/LICENSE",
+    "sha256": "aa324fbe633a96546bebca975fbbab65caa175894bd00cfa13d7335e7363400c"
+  },
+  "cpr-MIT.txt": {
+    "url": "https://raw.githubusercontent.com/libcpr/cpr/1.7.2/LICENSE",
+    "sha256": "5b3e329b915a6d5fd22c91748aa017c5118fabffb812fac335410818f3af9325"
+  },
+  "json-MIT.txt": {
+    "url": "https://raw.githubusercontent.com/nlohmann/json/v3.10.4/LICENSE.MIT",
+    "sha256": "c983d69523377819db3c377b390d5644f5ec53bec9b7c4a0f1ed893bb743d045"
+  },
+  "SingleApplication-MIT.txt": {
+    "url": "https://raw.githubusercontent.com/itay-grudev/SingleApplication/a218603d76a55dddb65b84f2b49ecaa8efc074ea/LICENSE",
+    "sha256": "34be941e1354bd9009dc91beaa6eb0b54fa59e5eb6977b89a1c967f26b0e1de4"
+  },
+  "magic_enum-MIT.txt": {
+    "url": "https://raw.githubusercontent.com/Neargye/magic_enum/v0.7.3/LICENSE",
+    "sha256": "1ee81e59041aff1a450c5189b85cff4d9e333ebb37e6811048dd0378e56acd13"
+  },
+  "Boost-BSL-1.0.txt": {
+    "url": "https://raw.githubusercontent.com/boostorg/boost/boost-1.77.0/LICENSE_1_0.txt",
+    "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
+  },
+  "curl.txt": {
+    "url": "https://raw.githubusercontent.com/curl/curl/curl-7_80_0/COPYING",
+    "sha256": "6fd1a1c008b5ef4c4741dd188c3f8af6944c14c25afa881eb064f98fb98358e7"
+  },
+  "OpenSSL-1.1.1l.txt": {
+    "url": "https://raw.githubusercontent.com/openssl/openssl/OpenSSL_1_1_1l/LICENSE",
+    "sha256": "c32913b33252e71190af2066f08115c69bc9fddadf3bf29296e20c835389841c"
+  },
+  "zlib.txt": {
+    "url": "https://raw.githubusercontent.com/madler/zlib/v1.2.11/README",
+    "sha256": "7960b6b1cc63e619abb77acaea5427159605afee8c8b362664f4effc7d7f7d15"
+  }
+}
