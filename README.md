@@ -1,2 +1,2 @@
-# codex_playground
-things that made by codex
+# playground
+things that made by me and codex
