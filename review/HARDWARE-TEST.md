@@ -78,3 +78,11 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Test-WindowsPrerequisi
 已完成用户明确授权的远程操作：将当前项目源码与构建脚本上传到 `KevinDeng233/codex_playground` 的 `airpods/pro3-hardware-test` 分支（不修改 main）；该分支的 push 触发 Windows 2022 GitHub Actions，安装构建机依赖、构建、运行测试，通过后导出便携 ZIP 与 SHA-256。不安装到用户电脑，不创建正式 Release。
 
 此前 GitHub API 请求返回 Forbidden；推送预检查曾因缺少上传授权被自动审批拒绝。用户随后已明确批准上传至独立测试分支并触发构建。本次构建已通过：https://github.com/KevinDeng233/codex_playground/actions/runs/41268074739。源码将遵循该仓库的可见性；构建也可能占用账户的 GitHub Actions 配额。远程构建成功后仍需在用户的 Windows 11 上检查实际架构、蓝牙驱动与 `9B43a` 电量广播。
+
+## 用户实测反馈：AirPods Pro 3 / 9B43a
+
+用户先报告“充电盒电量不显示，其余正常”，随后确认“耳机放回盒中可以正常显示”。因此已确认该设备的名称、连接状态、左右耳电量可正常显示，充电盒电量在耳机放回盒中时也可显示。这是用户实机反馈，不是云端蓝牙测试。
+
+充电盒读数并非在所有佩戴、取出或合盖场景都持续可用；当前版只显示有效数据，不把上次读数当成当前实时电量。取出耳机后显示“—”与放回盒后恢复读数，不应直接判定为解析故障。仅凭本轮反馈还不能区分具体的广播时机、扫描连接条件与短期缓存变化；未据此猜测新的协议字节或修改解析规则。
+
+本轮不需要更换驱动或重新构建应用。睡眠唤醒、多设备干扰、缩放等项目仍保留未验收状态。
