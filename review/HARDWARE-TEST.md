@@ -1,6 +1,6 @@
 # Windows 11 / AirPods 实机测试
 
-目前没有经过 Windows 编译验证的修改版 EXE。此文档、预检与打包脚本已经准备好；脚本尚未在 Windows 执行验证。不要把上游发行版、HTML 效果稿或 CI 定义当成本次改进版的实机测试结果。
+Windows 构建与 CI 自动测试已通过，[下载本次便携包](https://github.com/KevinDeng233/codex_playground/actions/runs/41268074739)。本次目标设备为 AirPods Pro 3 / 9B43a，硬件兼容性仍待实际运行验证。打包脚本已在 Windows CI 成功执行；预检脚本只随包提供，尚未在用户电脑执行。不要用上游发行版或 HTML 效果稿替代本次修改版。
 
 ## 第一步：收集必要信息
 
@@ -26,7 +26,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Test-WindowsPrerequisi
 
 已有开发工具：按根目录 README 使用 `Tools/Build-Evaluation.ps1` 构建并运行 CTest，先检查其是否成功结束。脚本不安装或启动应用，生成文件位于 `airpods-desktop/Build/Evaluation/Binary/`。
 
-没有开发工具：需要先在 Windows 构建机生成便携包。仓库含 Windows CI（手动触发或专用测试分支推送触发），在构建和自动测试成功后导出带 SHA-256 的便携包；需要将本次源码带到可运行该流水线的仓库并实际执行，不能用旧版官方 EXE 替代。当前聊天尚未推送源码、触发流水线或取得该构建的产物。
+没有开发工具：需要先在 Windows 构建机生成便携包（本次已完成）。仓库含 Windows CI（手动触发或专用测试分支推送触发），在构建和自动测试成功后导出带 SHA-256 的便携包；需要将本次源码带到可运行该流水线的仓库并实际执行，不能用旧版官方 EXE 替代。当前构建已经成功，打开上方链接，在 Artifacts 中下载 `airpods-evaluation-win11-x64`。GitHub 可能要求登录。下载的是产物外层 ZIP，解压后还有应用便携 ZIP 与对应 SHA-256 文件；再把应用 ZIP 解压到固定测试目录，直接启动其中的 EXE。
 
 交付到测试电脑时必须复制整个部署目录中的运行依赖，不能只复制 EXE。测试运行程序如 `*Tests.exe`、调试符号及构建文件不属于最终便携包；许可证和字体许可证应随包保留。不要运行安装器。
 
@@ -75,6 +75,6 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Test-WindowsPrerequisi
 
 已核查源码将产品标识 `0x2027` 映射为 AirPods Pro 3，且具有专用动画。新增两项 Qt 回归测试覆盖左右广播、分路电量、充电标记、0% 与未知电量区分，以及名称和动画选择；数据为人工构造，尚未在 Windows 执行，也不是 `9B43a` 广播抓包。
 
-已获用户明确授权的远程操作：将当前项目源码与构建脚本上传到 `KevinDeng233/codex_playground` 的 `airpods/pro3-hardware-test` 分支（不修改 main）；该分支的 push 触发 Windows 2022 GitHub Actions，安装构建机依赖、构建、运行测试，通过后导出便携 ZIP 与 SHA-256。不安装到用户电脑，不创建正式 Release。
+已完成用户明确授权的远程操作：将当前项目源码与构建脚本上传到 `KevinDeng233/codex_playground` 的 `airpods/pro3-hardware-test` 分支（不修改 main）；该分支的 push 触发 Windows 2022 GitHub Actions，安装构建机依赖、构建、运行测试，通过后导出便携 ZIP 与 SHA-256。不安装到用户电脑，不创建正式 Release。
 
-此前 GitHub API 请求返回 Forbidden；推送预检查曾因缺少上传授权被自动审批拒绝。用户随后已明确批准上传至独立测试分支并触发构建。构建结果以对应 GitHub Actions 运行记录为准。源码将遵循该仓库的可见性；构建也可能占用账户的 GitHub Actions 配额。远程构建成功后仍需在用户的 Windows 11 上检查实际架构、蓝牙驱动与 `9B43a` 电量广播。
+此前 GitHub API 请求返回 Forbidden；推送预检查曾因缺少上传授权被自动审批拒绝。用户随后已明确批准上传至独立测试分支并触发构建。本次构建已通过：https://github.com/KevinDeng233/codex_playground/actions/runs/41268074739。源码将遵循该仓库的可见性；构建也可能占用账户的 GitHub Actions 配额。远程构建成功后仍需在用户的 Windows 11 上检查实际架构、蓝牙驱动与 `9B43a` 电量广播。

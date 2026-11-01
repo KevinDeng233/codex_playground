@@ -1,6 +1,6 @@
 # Windows 11 AirPods 弹窗评估报告
 
-日期：2026-11-01。交付状态：首版源码改进完成，等待视觉及交互评估；Windows 构建和蓝牙实机验收尚未完成。未安装到用户电脑，未启动原生应用，未发布或推送。
+日期：2026-11-01。交付状态：源码改进、Windows 构建与 CI 自动测试已完成，便携包已生成；AirPods Pro 3 / 9B43a 蓝牙实机验收尚未完成。已获授权推送独立测试分支，main 未修改，未安装到用户电脑，未发布正式版本。构建记录：https://github.com/KevinDeng233/codex_playground/actions/runs/41268074739。
 
 ## 开源基础
 
@@ -43,7 +43,7 @@
 | Qt UI / 新增翻译 XML | 通过 | XML 可解析，新增控件名称与 C++ 引用一致 |
 | C++ 格式检查 | 通过 | 修改过的 C++ 文件使用仓库 clang-format 配置 |
 | Linux 上配置完整应用 | 被平台检查阻止 | CMake 3.31.6 明确要求 64-bit Windows / MSVC 2022，无法在此 Linux 云端完成 Windows 编译 |
-| Windows Qt 域、动画、UI 和连接测试 | 未运行 | 保留上游测试并增加四项真实 ViewModel 回归用例，仍需 Windows 工具链执行 |
+| Windows Qt 域、动画、UI 和连接测试 | CI 通过 | Windows 2022 / Visual Studio 2022 / Qt 6.8.3；构建脚本执行 CTest 成功，随后导出便携包。详细日志包含在 windows-evaluation-test-logs 产物中；当前代理无法读取登录后的日志，不虚报具体用例数 |
 | Windows 蓝牙 / AirPods 实机 | 未运行 | 当前云端没有 Windows 蓝牙硬件，不能声称设备名、电量和连接状态已经实测 |
 | 原生截图 / 浏览器像素级检查 | 未运行 | 当前交付 HTML 效果稿，没有冒充原生实机截图 |
 
@@ -61,7 +61,7 @@ npm install --prefix /tmp/airpods-preview-test --no-save --ignore-scripts jsdom@
 NODE_PATH=/tmp/airpods-preview-test/node_modules node review/test-preview.cjs
 ```
 
-Windows 构建与测试见根目录 README；`Tools/Build-Evaluation.ps1` 不生成安装器，也不启动应用。新增的 Windows CI 在专用测试分支推送或手动触发时执行构建与测试，通过后导出便携包；尚未在本次运行。
+Windows 构建与测试见根目录 README；`Tools/Build-Evaluation.ps1` 不生成安装器，也不启动应用。新增的 Windows CI 在专用测试分支推送或手动触发时执行构建与测试，通过后导出便携包；已在测试分支成功运行，见上方构建记录。
 
 ## 兼容性与待验收项目
 
@@ -72,4 +72,4 @@ Windows 构建与测试见根目录 README；`Tools/Build-Evaluation.ps1` 不生
 - 保留上游型号表不等于所有型号均已实测；尤其较新型号需逐一核验。
 - 后续 Windows 验收应覆盖：首次绑定、自定义设备名、连接即弹出、开盒/合盒、左右耳及充电盒充电、真实 0%、一耳缺失、广播超时但音频仍连接、断开重连、关闭蓝牙、睡眠唤醒、多个同型号设备，以及 100%/125%/150%/200% 缩放下的原生 UI。
 
-你评估视觉和行为后，再决定是否进入 Windows 构建及真机验收阶段。在此之前不会在你的电脑上安装或设置开机启动。
+用户已批准进入实机测试；Windows 云端构建已通过，下一步由用户在测试电脑解压运行便携包。不会安装程序或设置开机启动。
