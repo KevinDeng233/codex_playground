@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+  <class>MainWindow</class>
+  <widget class="QDialog" name="MainWindow">
+    <property name="geometry">
+      <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>320</width>
+        <height>340</height>
+      </rect>
+    </property>
+    <property name="windowTitle">
+      <string>AirPodsDesktop information</string>
+    </property>
+    <widget class="QLabel" name="deviceLabel">
+      <property name="geometry">
+        <rect>
+          <x>10</x>
+          <y>39</y>
+          <width>300</width>
+          <height>32</height>
+        </rect>
+      </property>
+      <property name="toolTipDuration">
+        <number>3</number>
+      </property>
+      <property name="text">
+        <string />
+      </property>
+      <property name="alignment">
+        <set>Qt::AlignCenter</set>
+      </property>
+    </widget>
+    <widget class="QWidget" name="animationContainer" native="true">
+      <property name="geometry">
+        <rect>
+          <x>30</x>
+          <y>103</y>
+          <width>260</width>
+          <height>122</height>
+        </rect>
+      </property>
+      <layout class="QGridLayout" name="layoutAnimation">
+        <property name="leftMargin">
+          <number>8</number>
+        </property>
+        <property name="topMargin">
+          <number>6</number>
+        </property>
+        <property name="rightMargin">
+          <number>8</number>
+        </property>
+        <property name="bottomMargin">
+          <number>6</number>
+        </property>
+      </layout>
+    </widget>
+    <widget class="QWidget" name="caseBatteryContainer">
+      <property name="geometry">
+        <rect>
+          <x>210</x>
+          <y>247</y>
+          <width>88</width>
+          <height>47</height>
+        </rect>
+      </property>
+      <layout class="QHBoxLayout" name="layoutCase" />
+    </widget>
+    <widget class="QWidget" name="podsBatteryContainer">
+      <property name="geometry">
+        <rect>
+          <x>22</x>
+          <y>247</y>
+          <width>184</width>
+          <height>47</height>
+        </rect>
+      </property>
+      <layout class="QHBoxLayout" name="layoutPods" />
+    </widget>
+    <widget class="QWidget" name="gridLayoutWidget_2">
+      <property name="geometry">
+        <rect>
+          <x>280</x>
+          <y>7</y>
+          <width>31</width>
+          <height>31</height>
+        </rect>
+      </property>
+      <layout class="QGridLayout" name="layoutClose" />
+    </widget>
+    <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+        <rect>
+          <x>40</x>
+          <y>295</y>
+          <width>241</width>
+          <height>36</height>
+        </rect>
+      </property>
+      <property name="text">
+        <string />
+      </property>
+    </widget>
+    <widget class="QLabel" name="statusLabel">
+      <property name="geometry">
+        <rect>
+          <x>10</x>
+          <y>75</y>
+          <width>300</width>
+          <height>26</height>
+        </rect>
+      </property>
+      <property name="text">
+        <string>Waiting for Windows device status</string>
+      </property>
+      <property name="alignment">
+        <set>Qt::AlignCenter</set>
+      </property>
+      <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+      </property>
+    </widget>
+    <widget class="QLabel" name="leftCaption">
+      <property name="geometry">
+        <rect>
+          <x>22</x>
+          <y>228</y>
+          <width>88</width>
+          <height>20</height>
+        </rect>
+      </property>
+      <property name="text">
+        <string>Left</string>
+      </property>
+      <property name="alignment">
+        <set>Qt::AlignCenter</set>
+      </property>
+      <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+      </property>
+    </widget>
+    <widget class="QLabel" name="leftUnknown">
+      <property name="geometry">
+        <rect>
+          <x>22</x>
+          <y>258</y>
+          <width>88</width>
+          <height>24</height>
+        </rect>
+      </property>
+      <property name="text">
+        <string>—</string>
+      </property>
+      <property name="alignment">
+        <set>Qt::AlignCenter</set>
+      </property>
+      <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+      </property>
+      <property name="toolTip">
+        <string>Battery unavailable; this does not mean 0%.</string>
+      </property>
+    </widget>
+    <widget class="QLabel" name="rightCaption">
+      <property name="geometry">
+        <rect>
+          <x>116</x>
+          <y>228</y>
+          <width>88</width>
+          <height>20</height>
+        </rect>
+      </property>
+      <property name="text">
+        <string>Right</string>
+      </property>
+      <property name="alignment">
+        <set>Qt::AlignCenter</set>
+      </property>
+      <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+      </property>
+    </widget>
+    <widget class="QLabel" name="rightUnknown">
+      <property name="geometry">
+        <rect>
+          <x>116</x>
+          <y>258</y>
+          <width>88</width>
+          <height>24</height>
+        </rect>
+      </property>
+      <property name="text">
+        <string>—</string>
+      </property>
+      <property name="alignment">
+        <set>Qt::AlignCenter</set>
+      </property>
+      <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+      </property>
+      <property name="toolTip">
+        <string>Battery unavailable; this does not mean 0%.</string>
+      </property>
+    </widget>
+    <widget class="QLabel" name="caseCaption">
+      <property name="geometry">
+        <rect>
+          <x>210</x>
+          <y>228</y>
+          <width>88</width>
+          <height>20</height>
+        </rect>
+      </property>
+      <property name="text">
+        <string>Case</string>
+      </property>
+      <property name="alignment">
+        <set>Qt::AlignCenter</set>
+      </property>
+      <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+      </property>
+    </widget>
+    <widget class="QLabel" name="caseUnknown">
+      <property name="geometry">
+        <rect>
+          <x>210</x>
+          <y>258</y>
+          <width>88</width>
+          <height>24</height>
+        </rect>
+      </property>
+      <property name="text">
+        <string>—</string>
+      </property>
+      <property name="alignment">
+        <set>Qt::AlignCenter</set>
+      </property>
+      <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+      </property>
+      <property name="toolTip">
+        <string>Battery unavailable; this does not mean 0%.</string>
+      </property>
+    </widget>
+    <widget class="QLabel" name="batteryHint">
+      <property name="geometry">
+        <rect>
+          <x>10</x>
+          <y>298</y>
+          <width>300</width>
+          <height>24</height>
+        </rect>
+      </property>
+      <property name="text">
+        <string>Battery is approximate; — means unavailable</string>
+      </property>
+      <property name="alignment">
+        <set>Qt::AlignCenter</set>
+      </property>
+      <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+      </property>
+    </widget>
+  </widget>
+  <resources />
+  <connections />
+</ui>

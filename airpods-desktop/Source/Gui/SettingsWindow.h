@@ -1,0 +1,111 @@
+//
+// AirPodsDesktop - AirPods Desktop User Experience Enhancement Program.
+// Copyright (C) 2021-2022 SpriteOvO
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
+
+#pragma once
+
+#include <functional>
+
+#include <QLabel>
+#include <QDialog>
+#include <QSlider>
+#include <QCheckBox>
+#include <QTimer>
+
+#include "../Core/QuickConnect.h"
+#include "../Core/Settings.h"
+#include "Utils.h"
+
+#include "ui_SettingsWindow.h"
+
+namespace Gui {
+
+using namespace Core::Settings;
+
+class SettingsWindow : public QDialog
+{
+    Q_OBJECT
+
+public:
+    explicit SettingsWindow(
+        std::function<int()> getCurrentLocaleIndex, Core::QuickConnect::Controller &quickConnect,
+        QWidget *parent = nullptr);
+    void SetLowAudioLatencyChecked(bool checked);
+
+    int GetTabCount() const;
+    int GetTabCurrentIndex() const;
+    int GetTabLastVisibleIndex() const;
+    void SetTabIndex(int index);
+
+private:
+    Ui::SettingsWindow _ui;
+    bool _trigger{true};
+    int _lastLanguageIndex{0};
+    QString _aboutTextTemplate;
+    std::function<int()> _getCurrentLocaleIndex;
+    Core::QuickConnect::Controller &_quickConnect;
+
+    void InitCreditsText();
+    void RestoreDefaults();
+    void Update(const Fields &fields, bool trigger);
+    void UpdateQuickConnectDevices(const Fields &fields);
+    void UpdateDescriptions();
+    void UpdateStandardButtonTexts();
+    void UpdateAdvOverride();
+
+    void showEvent(QShowEvent *event) override;
+
+    // General
+    void On_cbLanguages_currentIndexChanged(int index);
+    void On_cbAutoRun_toggled(bool checked);
+    void On_pbUnbind_clicked();
+
+    // Visual
+    void On_cbAppearanceMode_currentIndexChanged(int index);
+    void On_cbDisplayBatteryOnTrayIcon_toggled(TrayIconBatteryBehavior behavior);
+    void On_cbDisplayBatteryOnTaskbar_toggled(TaskbarStatusBehavior behavior);
+
+    // Features
+    void On_cbLowAudioLatency_toggled(bool checked);
+    void On_cbTrayQuickConnectEnabled_toggled(bool checked);
+    void On_cbTrayQuickConnectDevice_currentIndexChanged(int index);
+    void On_cbAutoEarDetection_toggled(bool checked);
+    void On_hsMaxReceivingRange_valueChanged(int value);
+
+    // About
+    void On_pbOpenLogsDirectory_clicked();
+
+    // Debug
+    void On_cbAdvOverride_toggled(bool checked);
+    void On_teAdvOverride_textChanged();
+
+    UTILS_QT_DISABLE_ESC_QUIT(QDialog);
+    UTILS_QT_REGISTER_LANGUAGECHANGE(QDialog, [this] {
+        _ui.retranslateUi(this);
+        _ui.cbLowAudioLatency->setAccessibleName(_ui.lbLowAudioLatency->text());
+        _ui.cbAutoEarDetection->setAccessibleName(_ui.lbAutoEarDetection->text());
+        _ui.cbTrayQuickConnectEnabled->setAccessibleName(_ui.lbTrayQuickConnect->text());
+        _ui.cbAppearanceMode->setAccessibleName(_ui.lbAppearance->text());
+        _aboutTextTemplate = _ui.label->text();
+        InitCreditsText();
+        UpdateDescriptions();
+        // QDialogButtonBox handles LanguageChange after its parent and resets standard-button
+        // labels to Qt's platform text. Apply our app translations once propagation ends.
+        QTimer::singleShot(0, this, [this] { UpdateStandardButtonTexts(); });
+    });
+};
+} // namespace Gui
